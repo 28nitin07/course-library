@@ -1,0 +1,7 @@
+{
+  "id": "library-guide",
+  "title": "Getting started with the archive",
+  "description": "A starter guide to finding and sharing course materials. This is a library guide, not a university course.",
+  "listings": [{ "departmentId": "library", "code": "GUIDE" }],
+  "majorIds": []
+}

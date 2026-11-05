@@ -1,70 +1,131 @@
 # Course Library
 
-A public file archive built with TypeScript, Effect, and Vite, with a minimal Windows 98 Explorer interface.
+A public university course archive built with TypeScript, Effect, and Vite. The interface borrows Windows XP's blue header, cream toolbar, and task pane, with navigation designed for courses and their semester offerings.
 
-## Organization
+## Academic model
 
-**Department → Course → Semester → Professor → Course code → Files**
+- **Departments** and **majors** are separate registries. A major is not assumed to be a department.
+- A **course** has a permanent ID, title, zero or more major memberships, and one or more department/code listings. Cross-listed codes lead to the same course and files. A course is counted once in the overall directory and once in each listed department.
+- An **offering** belongs to one course and semester, has a unique ID within that course, and identifies its section and all instructors. Parallel sections remain separate. Team teaching uses several professor IDs in one offering. Reuse an instructor's ID across semesters; use different IDs for different people, even if their names match.
+- **Shared files** belong to the course across all offerings. **Offering files** belong only to the offering in whose folder they are stored. Shared files are never silently attributed to a professor or semester.
 
-Each course offering has its own folder and `course.json`. The catalog discovers manifests at any depth. Recommended layout:
+A course is a stable academic identity, not a combination of department, instructor, and semester. Do not create a second course to add a cross-listing or a new semester.
 
-```text
-courses/
-  mathematics/
-    linear-algebra/
-      semester-1/
-        professor-name/
-          ma101/
-            course.json
-            Lecture 1.pdf
-            assignments/
-              Problem set 1.pdf
-```
+## Add your university registries
+
+Edit `catalog.config.json`. These are illustrative values; the repository currently includes only the starter guide, not a university's official catalog.
 
 ```json
 {
-  "department": "Mathematics",
-  "course": "Linear Algebra",
-  "semester": "Semester 1",
-  "professor": "Professor name",
-  "courseCode": "MA101",
-  "description": "Lecture notes and problem sets."
+  "departments": [
+    { "id": "math", "name": "Mathematics" },
+    { "id": "cs", "name": "Computer Science" }
+  ],
+  "majors": [
+    { "id": "math-major", "name": "Mathematics" },
+    { "id": "cs-major", "name": "Computer Science" }
+  ],
+  "semesters": [
+    { "id": "2026-fall", "name": "Fall 2026", "order": 20263 },
+    { "id": "2026-spring", "name": "Spring 2026", "order": 20261 }
+  ]
 }
 ```
 
-Use a separate offering folder for each semester, professor, and course code combination. Metadata determines the displayed hierarchy; folder names determine storage and download URLs. Offerings with identical metadata share a browser folder and their files appear together. Do not nest one offering's `course.json` inside another offering.
+Add as many majors and departments as required. IDs are permanent references; display names can be changed. Semester `order` is an explicit integer: larger values display first, avoiding guesses about your university's term names. Keep the guide's `library` department while its course remains, or remove the guide when adding your catalog.
 
-Department, course, semester, professor, and code are sorted in that order, with natural number ordering. Search matches filenames, file subfolders, descriptions, and all five metadata fields within the current location. Search terms match together; wrap a phrase in quotes for an exact phrase, such as `MA101 "Professor A"`. The five cascading filters, breadcrumb buttons, Home, and Up navigate the same hierarchy. Browser Back/Forward and shared URLs preserve location and search.
+## Add a course
 
-Older flat course folders remain supported: `title` maps to course and `category` maps to department. Missing department is shown as “Unassigned department”; missing semester, professor, and code show “Not specified”. Add the five metadata fields to fully classify older folders. A top-level folder without any manifest is treated as a legacy offering. Hidden paths, symbolic links, and course.json files are not downloadable.
+Create one course folder and a `course.json`:
 
-The only included material is a starter guide under `courses/library/`; remove this folder when ready. Visitors browse and download; only repository contributors manage files.
+```text
+courses/
+  linear-algebra/
+    course.json
+    shared/
+      Reading list.pdf
+    offerings/
+      2026-fall-a/
+        offering.json
+        Lecture 1.pdf
+      2026-fall-b/
+        offering.json
+        Lecture 1.pdf
+      2026-spring-a/
+        offering.json
+        Lecture 1.pdf
+```
 
-## Run locally
+`courses/linear-algebra/course.json`:
 
-Requires Node.js 22.18 or later (the tests use Node's built-in TypeScript support).
+```json
+{
+  "id": "linear-algebra",
+  "title": "Linear Algebra",
+  "description": "Matrices, linear transformations, and vector spaces.",
+  "listings": [
+    { "departmentId": "math", "code": "MATH 201" },
+    { "departmentId": "cs", "code": "CS 201" }
+  ],
+  "majorIds": ["math-major", "cs-major"]
+}
+```
+
+Course folders may be nested for storage, but a course cannot contain another course's manifest. Visible organization comes from metadata, not directory names. `description` and `majorIds` are optional. All other course fields above are required. A department/code pair can be assigned to only one canonical course in this catalog; add aliases to its listings rather than duplicating it.
+
+## Add semester offerings
+
+`courses/linear-algebra/offerings/2026-fall-a/offering.json`:
+
+```json
+{
+  "id": "2026-fall-a",
+  "semesterId": "2026-fall",
+  "section": "Section A",
+  "professors": [
+    { "id": "professor-rao", "name": "Professor Rao" }
+  ]
+}
+```
+
+For a parallel class, add a separate offering folder with another ID and section, such as `2026-fall-b` / `Section B`, and that class's professor and files. For a team-taught class, put both instructors in the same `professors` array. For a later semester, create another offering referencing that semester and its actual instructor IDs.
+
+Every offering requires an ID, known semester ID, a section label, and at least one professor. Section labels must be unique within a course and semester; use the university's actual section identifier or an equally clear label. Offering IDs are scoped to their course. An instructor ID must have a consistent name everywhere; identical names with different IDs remain different people and are disambiguated in the interface.
+
+All files beneath an offering manifest belong to that offering, including nested folders. Files elsewhere in the course folder are shared course materials. Manifests, hidden paths, and symbolic links are excluded. Offerings cannot be nested inside other offerings.
+
+## Browse and search
+
+The searchable department pane accommodates long department lists. Major, semester, and instructor filters are independent. Searching matches titles, descriptions, every cross-listed code and department, major names, semester names, instructors, sections, and filenames. Multiple search terms must match the same course/offering context; quoted phrases match as a phrase. The same course is never duplicated for its cross-listings.
+
+The course page groups offerings by semester, showing sections and every instructor before visitors open files. Offering pages retain the course, semester, section, and faculty context. Shared materials appear in a separately labeled section. Department counts respect the active filters; the course directory's Total files column counts all of that course's files. Breadcrumbs and browser Back/Forward preserve navigation, and URL links use permanent IDs.
+
+## Migration from the old hierarchy
+
+The previous scalar `department/course/semester/professor/courseCode` manifest is replaced by the model above. For each real course:
+
+1. Choose one permanent course ID and create one course manifest.
+2. Add all department/code aliases to `listings` and actual major memberships to `majorIds`.
+3. Move each semester/section's files into an offering folder with its own manifest and instructors.
+4. Move only genuinely coursewide files into shared folders.
+
+No university data was present during this migration; the starter guide was migrated to `courses/library-guide/`. Do not assume that same-title courses are equivalent: match them using the university's official catalog and assign IDs accordingly. Invalid or old manifests fail the build with a specific error rather than being guessed into the new model.
+
+## Run and publish
+
+Node.js 22.18 or later is required.
 
 ```sh
 npm ci
 npm run dev
-```
-
-After adding or changing course files during development, restart the dev server or run `npm run catalog` to rebuild the index. Every production build regenerates the catalog and copies files into `public/materials/`.
-
-## Publish
-
-This repository is published at https://28nitin07.github.io/course-library/ . Pushing to `main` runs tests, builds the site, and deploys through `.github/workflows/pages.yml`. Pages must use **GitHub Actions** in repository Settings → Pages.
-
-All assets and downloads use relative URLs, including repository subpath hosting. No visitor accounts, API keys, server, or database are needed. Browser support determines whether an opened file is displayed or downloaded; the Download control saves files directly.
-
-## Validation
-
-```sh
 npm test
 npm run build
-npm run preview
 ```
 
-`src/catalog.ts` uses Effect for network errors and runtime schema validation. `src/library.ts` is shared, tested hierarchy/filter logic. Tests cover nested offerings, all five sort fields, scope isolation, search, dependent selection resets, encoded download URLs, stale file cleanup, hidden files, symlinks, and invalid metadata.
+After changing course files locally, rerun `npm run catalog` or restart the dev server. Each production build regenerates the catalog and downloadable assets. Effect handles fetching and runtime schema validation. The catalog request is content-versioned to prevent an old schema from being used after deployment.
 
-Only commit materials intended for public access and that you have permission to distribute. Use external storage for files exceeding GitHub or Pages limits.
+Pushing to `main` deploys through `.github/workflows/pages.yml` to https://28nitin07.github.io/course-library/ . The workflow runs tests and a production build. No API keys, visitor accounts, server, or database are needed. Visitors can browse/download; file management happens in GitHub.
+
+Validation covers more than 20 majors and departments, cross-listing counts/search, parallel sections, team teaching, changed faculty across semesters, identical display names with distinct IDs, invalid references, duplicate identities, encoded download paths, exact file bytes, hidden files, symlinks, and stale asset cleanup. Browser QA uses temporary, clearly labeled test fixtures; those fixtures are not published.
+
+Only publish materials you intend to make public and have permission to distribute. GitHub and Pages file/storage limits still apply.

@@ -1,11 +1,17 @@
-# Reference board
+# Reference board — University archive
 
-Inferred interface patterns; no visual source screenshots were viewed.
+2026-11-05. Operate/Read mode. XP-inspired academic catalog, not a desktop replica.
 
-- Direct: GitHub repository browser — stable files and folders, clear downloadable resources.
-- Adjacent: university library catalog — search before browsing, subject labels and compact metadata.
-- Cultural: printed reading lists — serif course titles and numbered collections.
-- Interface system: native HTML controls and semantic tables for keyboard interaction.
-- Avoid: a sales landing page, invented course counts, stock imagery, or decorative dashboards.
+## Consulted references
 
-Technical documentation consulted: https://effect.website/docs/v3/getting-started/creating-effects/ and https://vite.dev/guide/static-deploy . These are implementation references, not visual sources.
+- Microsoft Windows XP overview: https://learn.microsoft.com/en-us/archive/msdn-magazine/2001/november/windows-xp-overview-take-advantage-of-new-windows-xp-features-in-your-apps-today — textual historical context for the revised interface.
+- XP open dialog reference page: https://en.wikibooks.org/wiki/File:OpenDialog.png — Luna screenshot description consulted. The original image could not be fetched; no screenshot pixels were extracted or reused.
+- Windows XP interface gallery: https://guidebookgallery.org/guis/windows/winxp/ — discovered as a historical visual reference; not visually inspected.
+- Adjacent university catalog and library reading-list patterns: inferred task references, not live pages. Separate course identity from term/section/instructors, and make alternate course codes discoverable.
+- Existing GitHub repository: source of actual archive contents and owner management flow.
+
+## Borrow
+Blue header, cream toolbar, task-pane sections, small yellow folders, and legible compact tables. Use these materials for a searchable course directory and semester offering comparisons.
+
+## Avoid
+Fake OS controls, rigid department-to-professor folder navigation, repeated course records for cross-listing, automatic assumptions that a major is a department, fabricated university programs or professors, or arbitrary merges based on titles.

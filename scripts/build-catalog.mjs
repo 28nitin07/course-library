@@ -2,87 +2,130 @@ import { readdir, readFile, mkdir, cp, rm, stat, writeFile } from 'node:fs/promi
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const hierarchy = ['department', 'course', 'semester', 'professor', 'courseCode'];
 const compare = (a, b) => a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' });
-const titleFrom = (name) => name.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 const visible = (item) => !item.name.startsWith('.') && !item.isSymbolicLink();
-
-export async function buildCatalog(root) {
-  const source = path.join(root, 'courses');
-  const target = path.join(root, 'public', 'materials');
-  const roots = [];
-  async function discover(directory, parts) {
-    const entries = (await readdir(directory, { withFileTypes: true })).filter(visible).sort((a, b) => compare(a.name, b.name));
-    const manifest = entries.find((item) => item.isFile() && item.name === 'course.json');
-    const children = [];
-    for (const item of entries.filter((item) => item.isDirectory())) children.push(...await discover(path.join(directory, item.name), [...parts, item.name]));
-    if (manifest && children.length) throw new Error(`${parts.join('/')}: nested course.json files are ambiguous. Put each offering in a separate leaf folder.`);
-    return manifest ? [{ parts, directory, manifest: true }] : children;
-  }
-  for (const folder of (await readdir(source, { withFileTypes: true })).filter(visible).sort((a, b) => compare(a.name, b.name))) {
-    if (!folder.isDirectory()) continue;
-    const directory = path.join(source, folder.name);
-    const discovered = await discover(directory, [folder.name]);
-    roots.push(...(discovered.length ? discovered : [{ parts: [folder.name], directory, manifest: false }]));
-  }
-  const courses = [];
-  const copies = [];
-  for (const offering of roots) {
-    const id = offering.parts.join('/');
-    let meta = {};
-    if (offering.manifest) {
-      try { meta = JSON.parse(await readFile(path.join(offering.directory, 'course.json'), 'utf8')); }
-      catch (error) { throw new Error(`Invalid course.json in ${id}: ${error.message}`); }
-      if (!meta || typeof meta !== 'object' || Array.isArray(meta)) throw new Error(`${id}: course.json must contain an object`);
-      for (const key of [...hierarchy, 'title', 'description', 'category']) {
-        if (meta[key] !== undefined && (typeof meta[key] !== 'string' || !meta[key].trim())) throw new Error(`${id}: ${key} must be a non-empty string`);
-      }
-    }
-    const value = (key, fallback) => meta[key]?.trim() || fallback;
-    const course = {
-      id,
-      department: value('department', value('category', 'Unassigned department')),
-      course: value('course', value('title', titleFrom(offering.parts.at(-1)))),
-      semester: value('semester', 'Not specified'),
-      professor: value('professor', 'Not specified'),
-      courseCode: value('courseCode', 'Not specified'),
-      description: value('description', ''),
-      files: [],
-    };
-    async function walk(directory, parts = []) {
-      for (const item of (await readdir(directory, { withFileTypes: true })).filter(visible).sort((a, b) => compare(a.name, b.name))) {
-        if (item.name === 'course.json') continue;
-        const segments = [...parts, item.name];
-        const fullPath = path.join(directory, item.name);
-        if (item.isDirectory()) await walk(fullPath, segments);
-        else if (item.isFile()) {
-          const info = await stat(fullPath);
-          const destination = path.join(target, ...offering.parts, ...segments);
-          copies.push({ source: fullPath, destination });
-          course.files.push({ name: item.name, folder: parts.join('/'), type: path.extname(item.name).slice(1).toUpperCase() || 'FILE', size: info.size, url: ['materials', ...offering.parts, ...segments].map(encodeURIComponent).join('/') });
-        }
-      }
-    }
-    await walk(offering.directory);
-    courses.push(course);
-  }
-  courses.sort((a, b) => {
-    for (const key of hierarchy) { const result = compare(a[key], b[key]); if (result) return result; }
-    return compare(a.id, b.id);
-  });
-  // Validate every offering before replacing generated public assets.
-  await mkdir(path.join(root, 'public'), { recursive: true });
-  await rm(target, { recursive: true, force: true });
-  for (const copy of copies) {
-    await mkdir(path.dirname(copy.destination), { recursive: true });
-    await cp(copy.source, copy.destination);
-  }
-  const catalog = { courses };
-  await writeFile(path.join(root, 'public', 'catalog.json'), JSON.stringify(catalog, null, 2) + '\n');
-  return catalog;
+const fail = (context, message) => { throw new Error(`${context}: ${message}`); };
+const string = (value, context) => { if (typeof value !== 'string' || !value.trim()) fail(context, 'must be a non-empty string'); return value.trim(); };
+const array = (value, context) => { if (!Array.isArray(value)) fail(context, 'must be an array'); return value; };
+function unique(items, context) { const values = new Set(); for (const item of items) { if (values.has(item)) fail(context, `duplicate value ${item}`); values.add(item); } }
+async function json(file) {
+  let value;
+  try { value = JSON.parse(await readFile(file, 'utf8')); } catch (error) { fail(file, `invalid JSON: ${error.message}`); }
+  if (!value || typeof value !== 'object' || Array.isArray(value)) fail(file, 'must contain an object');
+  return value;
 }
 
+export async function buildCatalog(root) {
+  const config = await json(path.join(root, 'catalog.config.json'));
+  const departments = array(config.departments, 'departments').map((d) => ({ id: string(d?.id, 'department.id'), name: string(d?.name, 'department.name') }));
+  const majors = array(config.majors ?? [], 'majors').map((m) => ({ id: string(m?.id, 'major.id'), name: string(m?.name, 'major.name') }));
+  const semesters = array(config.semesters, 'semesters').map((s) => {
+    if (!Number.isSafeInteger(s?.order)) fail('semester.order', 'must be a safe integer; larger values appear first');
+    return { id: string(s.id, 'semester.id'), name: string(s.name, 'semester.name'), order: s.order };
+  });
+  unique(departments.map((d) => d.id), 'departments'); unique(majors.map((m) => m.id), 'majors'); unique(semesters.map((s) => s.id), 'semesters');
+  const departmentIds = new Set(departments.map((d) => d.id));
+  const majorIds = new Set(majors.map((m) => m.id));
+  const semesterIds = new Set(semesters.map((s) => s.id));
+  const target = path.join(root, 'public/materials');
+  const copies = [];
+  const professors = new Map();
+  const allListings = new Set();
+  const courses = [];
+  const roots = [];
+  async function discover(directory, parts, insideCourse = false) {
+    const entries = (await readdir(directory, { withFileTypes: true })).filter(visible).sort((a, b) => compare(a.name, b.name));
+    const hasCourse = entries.some((e) => e.isFile() && e.name === 'course.json');
+    if (entries.some((e) => e.isFile() && e.name === 'offering.json') && !insideCourse) fail(parts.join('/'), 'offering.json must be inside a course folder');
+    if (hasCourse) { if (insideCourse) fail(parts.join('/'), 'course.json cannot be nested inside another course'); roots.push({ directory, parts }); }
+    for (const item of entries.filter((e) => e.isDirectory())) await discover(path.join(directory, item.name), [...parts, item.name], insideCourse || hasCourse);
+  }
+  await discover(path.join(root, 'courses'), []);
+  async function collect(directory, parts, files, offeringRoots, offeringCollector) {
+    const entries = (await readdir(directory, { withFileTypes: true })).filter(visible).sort((a, b) => compare(a.name, b.name));
+    if (entries.some((e) => e.isFile() && e.name === 'offering.json')) {
+      if (!offeringCollector) fail(parts.join('/'), 'an offering cannot be nested inside another offering');
+      offeringRoots.push({ directory, parts }); return;
+    }
+    for (const item of entries) {
+      if (['course.json', 'offering.json'].includes(item.name)) continue;
+      const segments = [...parts, item.name]; const full = path.join(directory, item.name);
+      if (item.isDirectory()) await collect(full, segments, files, offeringRoots, offeringCollector);
+      else if (item.isFile()) {
+        const info = await stat(full);
+        files.push({ name: item.name, folder: '', type: path.extname(item.name).slice(1).toUpperCase() || 'FILE', size: info.size, url: ['materials', ...segments].map(encodeURIComponent).join('/') });
+        copies.push({ source: full, destination: path.join(target, ...segments) });
+      }
+    }
+  }
+  for (const { directory, parts } of roots) {
+    const meta = await json(path.join(directory, 'course.json'));
+    const id = string(meta.id, `${parts.join('/')}.id`);
+    const title = string(meta.title, `${id}.title`);
+    const description = meta.description === undefined ? '' : string(meta.description, `${id}.description`);
+    const listings = array(meta.listings, `${id}.listings`).map((l) => {
+      const departmentId = string(l?.departmentId, `${id}.listing.departmentId`);
+      if (!departmentIds.has(departmentId)) fail(id, `unknown department ${departmentId}`);
+      const code = string(l?.code, `${id}.listing.code`);
+      const key = `${departmentId}\u0000${code.toLocaleLowerCase()}`;
+      if (allListings.has(key)) fail(id, `duplicate department/code listing ${departmentId}: ${code}`);
+      allListings.add(key); return { departmentId, code };
+    });
+    if (!listings.length) fail(id, 'at least one department/code listing is required');
+    const courseMajors = array(meta.majorIds ?? [], `${id}.majorIds`).map((m) => string(m, `${id}.majorId`));
+    unique(courseMajors, `${id}.majorIds`);
+    for (const m of courseMajors) if (!majorIds.has(m)) fail(id, `unknown major ${m}`);
+    const sharedFiles = []; const offeringRoots = [];
+    await collect(directory, parts, sharedFiles, offeringRoots, true);
+    // Keep relative subfolder labels useful without exposing the storage prefix.
+    for (const file of sharedFiles) file.folder = decodeURIComponent(file.url.split('/').slice(1 + parts.length, -1).join('/'));
+    const offerings = [];
+    for (const offeringRoot of offeringRoots) {
+      const item = await json(path.join(offeringRoot.directory, 'offering.json'));
+      const offeringId = string(item.id, `${id}.offering.id`);
+      const semesterId = string(item.semesterId, `${id}/${offeringId}.semesterId`);
+      if (!semesterIds.has(semesterId)) fail(id, `unknown semester ${semesterId}`);
+      const section = string(item.section, `${id}/${offeringId}.section`);
+      const professorIds = array(item.professors, `${id}/${offeringId}.professors`).map((p) => {
+        const professorId = string(p?.id, 'professor.id'); const name = string(p?.name, 'professor.name');
+        if (professors.has(professorId) && professors.get(professorId).name !== name) fail(id, `conflicting names for professor ${professorId}`);
+        professors.set(professorId, { id: professorId, name }); return professorId;
+      });
+      if (!professorIds.length) fail(id, `offering ${offeringId} requires at least one professor`);
+      unique(professorIds, `${id}/${offeringId}.professors`);
+      const files = [];
+      // Skip the root manifest, but reject any nested offering manifests.
+      const entries = (await readdir(offeringRoot.directory, { withFileTypes: true })).filter(visible);
+      for (const entry of entries) {
+        if (entry.name === 'offering.json') continue;
+        if (entry.isDirectory()) await collect(path.join(offeringRoot.directory, entry.name), [...offeringRoot.parts, entry.name], files, [], false);
+        else if (entry.isFile() && entry.name !== 'course.json') {
+          const full = path.join(offeringRoot.directory, entry.name); const info = await stat(full);
+          const segments = [...offeringRoot.parts, entry.name];
+          files.push({ name: entry.name, folder: '', type: path.extname(entry.name).slice(1).toUpperCase() || 'FILE', size: info.size, url: ['materials', ...segments].map(encodeURIComponent).join('/') });
+          copies.push({ source: full, destination: path.join(target, ...segments) });
+        }
+      }
+      for (const file of files) file.folder = decodeURIComponent(file.url.split('/').slice(1 + offeringRoot.parts.length, -1).join('/'));
+      files.sort((a, b) => compare(a.name, b.name) || compare(a.url, b.url));
+      offerings.push({ id: offeringId, semesterId, section, professorIds, files });
+    }
+    unique(offerings.map((o) => o.id), `${id}.offerings`);
+    unique(offerings.map((o) => `${o.semesterId}\u0000${o.section.toLocaleLowerCase()}`), `${id}.semester/section`);
+    offerings.sort((a, b) => semesters.find((s) => s.id === b.semesterId).order - semesters.find((s) => s.id === a.semesterId).order || compare(a.section, b.section));
+    sharedFiles.sort((a, b) => compare(a.name, b.name) || compare(a.url, b.url));
+    courses.push({ id, title, description, listings, majorIds: courseMajors, sharedFiles, offerings });
+  }
+  unique(courses.map((c) => c.id), 'courses');
+  courses.sort((a, b) => compare(a.title, b.title) || compare(a.id, b.id));
+  departments.sort((a, b) => compare(a.name, b.name)); majors.sort((a, b) => compare(a.name, b.name)); semesters.sort((a, b) => b.order - a.order || compare(a.name, b.name));
+  // Publish generated assets only after all relationships have been validated.
+  await mkdir(path.join(root, 'public'), { recursive: true }); await rm(target, { recursive: true, force: true });
+  for (const copy of copies) { await mkdir(path.dirname(copy.destination), { recursive: true }); await cp(copy.source, copy.destination); }
+  const catalog = { departments, majors, semesters, professors: [...professors.values()].sort((a, b) => compare(a.name, b.name) || compare(a.id, b.id)), courses };
+  await writeFile(path.join(root, 'public/catalog.json'), JSON.stringify(catalog, null, 2) + '\n'); return catalog;
+}
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const catalog = await buildCatalog(process.cwd());
-  console.log(`Indexed ${catalog.courses.length} offerings and ${catalog.courses.reduce((n, c) => n + c.files.length, 0)} files.`);
+  console.log(`Indexed ${catalog.courses.length} courses, ${catalog.courses.reduce((n, c) => n + c.offerings.length, 0)} offerings.`);
 }
