@@ -1,7 +1,7 @@
 import { Effect, Schema } from 'effect';
 
 const Resource = Schema.Struct({ name: Schema.String, folder: Schema.String, type: Schema.String, size: Schema.Number, url: Schema.String });
-const Course = Schema.Struct({ id: Schema.String, title: Schema.String, description: Schema.String, category: Schema.String, files: Schema.Array(Resource) });
+const Course = Schema.Struct({ id: Schema.String, department: Schema.String, course: Schema.String, semester: Schema.String, professor: Schema.String, courseCode: Schema.String, description: Schema.String, files: Schema.Array(Resource) });
 export const Catalog = Schema.Struct({ courses: Schema.Array(Course) });
 export type Course = typeof Course.Type;
 export type Resource = typeof Resource.Type;

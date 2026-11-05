@@ -1,1 +1,31 @@
-[{"date":"2026-11-05","surface":"app shell","mood":"warm","seed":42,"structure":"sidebar, intro, search, course grid or resource table","critique":{"showDontTell":4,"philosophy":4,"hierarchy":4,"specificity":4,"restraint":5,"variety":4}}]
+[
+  {
+    "date": "2026-11-05",
+    "surface": "app shell",
+    "mood": "warm",
+    "seed": 42,
+    "structure": "sidebar, intro, search, course grid or resource table",
+    "critique": {
+      "showDontTell": 4,
+      "philosophy": 4,
+      "hierarchy": 4,
+      "specificity": 4,
+      "restraint": 5,
+      "variety": 4
+    }
+  },
+  {
+    "date": "2026-11-05",
+    "surface": "app shell",
+    "mood": "user-specified Windows 98",
+    "structure": "Explorer window, department sidebar, five cascading filters, hierarchical folder list",
+    "critique": {
+      "showDontTell": 5,
+      "philosophy": 5,
+      "hierarchy": 5,
+      "specificity": 5,
+      "restraint": 5,
+      "variety": 4
+    }
+  }
+]
