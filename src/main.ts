@@ -71,8 +71,18 @@ function resourceTable(files: readonly Resource[], label: string, emptyMessage =
   if (!files.length) return `<div class="empty compact"><p>${esc(emptyMessage)}</p></div>`;
   return `<div class="table-scroll"><table class="file-table"><caption class="sr-only">${esc(label)}</caption><thead><tr><th scope="col">File</th><th scope="col">Type</th><th scope="col">Size</th><th scope="col"><span class="sr-only">Download</span></th></tr></thead><tbody>${files.map((file) => `<tr><td><div class="file-name">${icon('FileText')}<div><a href="${esc(file.url)}" ${file.backupUrl ? `data-backup-url="${esc(file.backupUrl)}"` : ''} target="_blank" rel="noopener">${esc(file.name)}</a>${file.folder ? `<small>${esc(file.folder)}</small>` : ''}</div></div></td><td>${esc(file.type)}</td><td class="size">${size(file.size)}</td><td><a class="download" href="${esc(file.url)}" ${file.backupUrl ? `data-backup-url="${esc(file.backupUrl)}"` : ''} download="${esc(file.name)}" aria-label="Download ${esc(file.name)}">${icon('Download')}<span>Download</span></a>${file.backupUrl ? `<a class="backup-download" href="${esc(file.backupUrl)}" target="_blank" rel="noopener" aria-label="Backup download for ${esc(file.name)}">backup</a>` : ''}</td></tr>`).join('')}</tbody></table></div>`;
 }
+function courseLink(id: string) {
+  const params = new URLSearchParams();
+  keys.forEach((key) => { const value = key === 'course' ? id : key === 'offering' ? '' : state[key]; if (value) params.set(key === 'query' ? 'q' : key, value); });
+  return `#${params}`;
+}
 function bindCourseButtons() {
-  document.querySelectorAll<HTMLButtonElement>('[data-course]').forEach((button) => button.addEventListener('click', () => { update({ course: button.dataset.course!, offering: '' }); document.querySelector<HTMLElement>('#main')!.focus(); }));
+  document.querySelectorAll<HTMLAnchorElement>('[data-course]').forEach((link) => link.addEventListener('click', (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    update({ course: link.dataset.course!, offering: '' });
+    document.querySelector<HTMLElement>('#main')!.focus();
+  }));
 }
 function renderCourseList() {
   const result = matchingCourses(catalog, state);
@@ -80,11 +90,12 @@ function renderCourseList() {
   document.querySelector('#page-description')!.textContent = '';
   const offerings = result.reduce((n, c) => n + matchingOfferings(catalog, c, state).length, 0);
   document.querySelector('#archive-counts')!.innerHTML = `<strong>${result.length}</strong><span>${result.length === 1 ? 'course' : 'courses'}</span>`;
-  document.querySelector('#content')!.innerHTML = `<div class="section-heading"><h2>Course directory</h2><span>${offerings} matching ${offerings === 1 ? 'offering' : 'offerings'}</span></div>${result.length ? `<div class="table-scroll"><table class="course-table"><caption class="sr-only">Courses listed once, including cross-listed department codes</caption><thead><tr><th scope="col">Course</th><th scope="col">Listings</th><th scope="col">Offerings</th><th scope="col">Total files</th></tr></thead><tbody>${result.map((course) => {
+  document.querySelector('#content')!.innerHTML = `<div class="folder-toolbar"><h2>Course folders</h2><span>name / a–z</span></div>${result.length ? `<ul class="course-folders" aria-label="Course folders">${result.map((course) => {
     const available = matchingOfferings(catalog, course, state);
     const terms = [...new Set(available.map((o) => o.semesterId))].map((id) => entity(catalog.semesters, id));
-    return `<tr><td><div class="course-name"><div><button data-course="${esc(course.id)}">${esc(course.title)}</button><small>${esc(listingNames(course))}</small></div></div></td><td><div class="codes">${courseCodes(course)}</div>${course.listings.length > 1 ? '<small class="cross-listed">Cross-listed</small>' : ''}</td><td><span>${available.length} ${available.length === 1 ? 'offering' : 'offerings'}</span><small>${esc(terms.join(' · ') || (course.sharedFiles.length ? 'Shared materials only' : 'No offerings yet'))}</small></td><td><span class="material-count">${fileCount(course)} ${fileCount(course) === 1 ? 'file' : 'files'}</span><button class="open-course" data-course="${esc(course.id)}" aria-label="Open ${esc(course.title)}">${icon('ChevronRight')}</button></td></tr>`;
-  }).join('')}</tbody></table></div>` : `<div class="empty">${icon('Search')}<h2>No courses match these filters</h2><p>Try another department or clear the filters to search the whole archive.</p><button id="empty-reset" class="action-button">Clear all filters</button></div>`}`;
+    const count = fileCount(course);
+    return `<li><a class="course-folder" data-course="${esc(course.id)}" href="${esc(courseLink(course.id))}" aria-label="Open ${esc(course.title)}" title="${esc(listingNames(course))} · ${esc(terms.join(' · ') || 'Shared materials')}"><span class="pixel-folder" aria-hidden="true"></span><span class="folder-name">${esc(course.title)}</span><span class="folder-codes">${courseCodes(course)}</span><span class="folder-details">${count} ${count === 1 ? 'file' : 'files'}<span aria-hidden="true"> · </span>${available.length ? `${available.length} ${available.length === 1 ? 'offering' : 'offerings'}` : 'shared'}</span></a></li>`;
+  }).join('')}</ul>` : `<div class="empty">${icon('Search')}<h2>No courses match these filters</h2><p>Try another department or clear the filters to search the whole archive.</p><button id="empty-reset" class="action-button">Clear all filters</button></div>`}`;
   document.querySelector('#empty-reset')?.addEventListener('click', () => { state = emptyState(); syncURL(); render(); });
   bindCourseButtons();
   document.querySelector('#status')!.textContent = `${result.length} ${result.length === 1 ? 'course' : 'courses'} · ${offerings} matching ${offerings === 1 ? 'offering' : 'offerings'}`;

@@ -55,5 +55,19 @@
       "restraint": 5,
       "variety": 4
     }
+  },
+  {
+    "date": "2026-11-05",
+    "surface": "course directory",
+    "mood": "minimal terminal",
+    "structure": "Finder-style pixel folder grid within approved top-search/right-filter shell",
+    "critique": {
+      "showDontTell": 5,
+      "philosophy": 5,
+      "hierarchy": 5,
+      "specificity": 5,
+      "restraint": 5,
+      "variety": 4
+    }
   }
 ]

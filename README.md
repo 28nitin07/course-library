@@ -100,7 +100,7 @@ All files beneath an offering manifest belong to that offering, including nested
 
 Department, major, semester, and instructor filters are independent and grouped in the right-hand panel. On mobile, that panel becomes a collapsible section below the search bar. Searching matches titles, descriptions, every cross-listed code and department, major names, semester names, instructors, sections, and filenames. Multiple search terms must match the same course/offering context; quoted phrases match as a phrase. The same course is never duplicated for its cross-listings.
 
-The course page groups offerings by semester, showing sections and every instructor before visitors open files. Offering pages retain the course, semester, section, and faculty context. Shared materials appear in a separately labeled section. Result counts respect the active filters; the course directory's Total files column counts all of that course's files. Breadcrumbs and browser Back/Forward preserve navigation, and URL links use permanent IDs.
+The course page groups offerings by semester, showing sections and every instructor before visitors open files. Offering pages retain the course, semester, section, and faculty context. Shared materials appear in a separately labeled section. Result counts respect the active filters; each folder’s file count includes all files in that course. Breadcrumbs and browser Back/Forward preserve navigation, and URL links use permanent IDs.
 
 ## Migration from the old hierarchy
 
@@ -141,3 +141,7 @@ Files under `courses/**/materials/**` are tracked with Git LFS. Each offering's 
 Download buttons check the LFS URL with a lightweight HEAD request and use the Releases copy if the check fails, including blocked or exhausted LFS access. Modified clicks and copying a URL retain the primary link. A successful check followed by a later transfer failure cannot be detected by this static website; use the backup link in that case. This availability check does not monitor billing usage or change account budgets. Keep the account's LFS budget capped if paid overages are unwanted.
 
 Releases backups must be uploaded and verified before publishing download manifests. Updating a file requires uploading the new LFS object, refreshing its size and primary URL, and uploading its matching backup asset. Preserve existing backup assets for older links.
+
+## Course folder view
+
+The course directory uses an alphabetical Finder-style folder grid. Pixel folder icons come from pixelarticons (MIT; license bundled in `public/icons/`). Full course names, all cross-listed codes, total files, and matching offering counts remain visible. Click a folder or press Enter to open it; modified clicks open its link normally. Search and the right-hand filters continue to narrow the same canonical courses. The grid adapts to two columns on narrow phones without truncating course names.
