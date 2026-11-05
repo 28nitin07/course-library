@@ -1,10 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="A university course archive with cross-listed courses, semester offerings, instructors, and downloadable learning materials." />
-<meta name="theme-color" content="#174a8b" />
+<meta name="theme-color" content="#101722" />
+<script>
+  // Apply the saved choice before styles load; new visitors start in dark mode.
+  (() => {
+    let theme = 'dark';
+    try { if (localStorage.getItem('course-library-theme') === 'light') theme = 'light'; } catch {}
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#101722' : '#174a8b';
+  })();
+</script>
 <title>Course Library</title>
 </head>
 <body>

@@ -10,7 +10,7 @@ Departments, majors, courses, semesters, instructors, and offerings have separat
 
 ## Color contract
 Background #e8eff7; surface #ffffff; chrome #f4f2e9; blue #174a8b; blue-dark #113363; blue-bright #3269c6; blue-light #eaf2fc; sidebar #d9e5f5; line #c2cee0; text #23354c; muted #52647b; green #285d2a; folder fill #f4cd62 with edge #795d15. Shadow rgba(26,55,94,.14).
-Verified: text/white 12.46:1; text/blue-light 11.04:1; blue/white 8.79:1; blue/blue-light 7.79:1; white/blue-bright 5.29:1; muted/cream 5.40:1; green/blue-light 6.92:1. Header gradient uses white text on endpoints that pass AA. Lines are decorative; focus uses blue-bright. Do not place dark text on primary blue. Single light theme.
+Verified: text/white 12.46:1; text/blue-light 11.04:1; blue/white 8.79:1; blue/blue-light 7.79:1; white/blue-bright 5.29:1; muted/cream 5.40:1; green/blue-light 6.92:1. Header gradient uses white text on endpoints that pass AA. Lines are decorative; focus uses blue-bright. Do not place dark text on primary blue. Runtime theme switch; dark is the default for new visitors, and explicit light/dark choices persist locally. Both palettes are verified.
 
 ## Type, space, and shape
 Tahoma/Verdana/Arial. Main titles 23–27px, course links 13px, body 12–13px, secondary labels 10–11px. Spacing 4/6/8/10/12/14/16/18/20/22/24/30/32/44px. Corners 3–5px on controls/panels and 9px on header frame. Modest window shadow, shallow button bevels. Column layout: 250px department task pane + flexible main; 210px sidebar below 1080px; stacked layout below 780px.
@@ -21,3 +21,8 @@ Existing Lucide icon family; folder icons gold, navigation ink blue/green. No im
 ## Verification and memory
 Test fixtures include 24 majors and departments, a cross-listed course, simultaneous sections, team teaching, and changed faculty across semesters. Browser QA verifies cross-listed navigation, instructor/semester isolation, offering files vs shared files, and mobile comparison. Fixtures are temporary and not published. Actual catalog contains only the starter guide.
 Project decision log and style lock updated. No global personal profile changes. Current XP execution pending user review; requested inspiration recorded without assuming approval of this implementation.
+
+## Dark mode (default)
+Background #101722; surface #192332; chrome #202c3d; link blue #9cc5ff; heading #d6e6fc; focus #8bb8ff; blue-light #253850; sidebar #23354e; line #526781; text #e5edf7; muted #b4c2d5; green #9cdda8. The XP header retains its blue gradient and explicit white label tokens in both modes. Control boundaries use #8296b2 in dark mode and #75869d in light mode (3.95:1 and 3.71:1 respectively; above the 3:1 UI boundary floor).
+Dark text/surface contrast 13.40:1, text/blue-light 10.11:1, links/blue-light 6.73:1, muted/sidebar 6.87:1, green/blue-light 7.57:1. Decorative lines need not carry state; keyboard focus and pressed theme state use contrasting blue.
+Apply the saved theme in the document head before CSS loads. A stable “Dark mode” toggle exposes aria-pressed, retains course navigation state, works without storage, and synchronizes changes between tabs. Only a saved explicit light choice overrides the dark default.

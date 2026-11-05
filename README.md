@@ -2,6 +2,8 @@
 
 A public university course archive built with TypeScript, Effect, and Vite. The interface borrows Windows XP's blue header, cream toolbar, and task pane, with navigation designed for courses and their semester offerings.
 
+Dark mode is the default. The toolbar’s **Dark mode** toggle switches between dark and light; the choice is remembered in browser storage and applied before styles load.
+
 ## Academic model
 
 - **Departments** and **majors** are separate registries. A major is not assumed to be a department.
