@@ -1,0 +1,8 @@
+node_modules/
+dist/
+public/catalog.json
+public/materials/
+.DS_Store
+.env*
+!.env.example
+.tastemaker/preview.png
