@@ -1,0 +1,108 @@
+{
+  "files": [
+    {
+      "name": "Image-Generation-Questions.pdf",
+      "folder": "",
+      "type": "PDF",
+      "size": 82850,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/Image-Generation-Questions.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/a859ae76eb1a9570--Image-Generation-Questions.pdf"
+    },
+    {
+      "name": "Probability_Practice_Problems.pdf",
+      "folder": "",
+      "type": "PDF",
+      "size": 88867,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/Probability_Practice_Problems.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/a04a107aaada13ca--Probability_Practice_Problems.pdf"
+    },
+    {
+      "name": "syllabus.pdf",
+      "folder": "",
+      "type": "PDF",
+      "size": 72000,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/syllabus.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/bb6157f89c60fa7e--syllabus.pdf"
+    },
+    {
+      "name": "Assignment - 1.pdf",
+      "folder": "Assignments",
+      "type": "PDF",
+      "size": 257448,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/Assignments/Assignment%20-%201.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/fa163770b55cdda7--Assignment---1.pdf"
+    },
+    {
+      "name": "Assignment-2.pdf",
+      "folder": "Assignments",
+      "type": "PDF",
+      "size": 163428,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/Assignments/Assignment-2.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/aaad1a1e05a2cf60--Assignment-2.pdf"
+    },
+    {
+      "name": "ls04.pdf",
+      "folder": "qrmt notes",
+      "type": "PDF",
+      "size": 34227094,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/qrmt%20notes/ls04.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/5724021085374fd4--ls04.pdf"
+    },
+    {
+      "name": "ls01.pdf",
+      "folder": "qrmt notes",
+      "type": "PDF",
+      "size": 47909958,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/qrmt%20notes/ls01.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/60ffd4d61d6fd76d--ls01.pdf"
+    },
+    {
+      "name": "ls03.pdf",
+      "folder": "qrmt notes",
+      "type": "PDF",
+      "size": 51071651,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/qrmt%20notes/ls03.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/8ea5421df4b43abc--ls03.pdf"
+    },
+    {
+      "name": "prob.py",
+      "folder": "class code",
+      "type": "PY",
+      "size": 1549,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/class%20code/prob.py",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/ed01cc3f32349495--prob.py"
+    },
+    {
+      "name": "epicycloid.py",
+      "folder": "class code",
+      "type": "PY",
+      "size": 2550,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/class%20code/epicycloid.py",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/6769678b5232a526--epicycloid.py"
+    },
+    {
+      "name": "QRMTDS.py",
+      "folder": "ds code",
+      "type": "PY",
+      "size": 1544,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/ds%20code/QRMTDS.py",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/0b09c6475571dafc--QRMTDS.py"
+    },
+    {
+      "name": "QRMTDS3.py",
+      "folder": "ds code",
+      "type": "PY",
+      "size": 613,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/ds%20code/QRMTDS3.py",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/5004267b5cff8fe5--QRMTDS3.py"
+    },
+    {
+      "name": "QRMTDS1.py",
+      "folder": "ds code",
+      "type": "PY",
+      "size": 1390,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/qrmt/offerings/monsoon-2025/materials/ds%20code/QRMTDS1.py",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/4b4e8b6c35623073--QRMTDS1.py"
+    }
+  ]
+}

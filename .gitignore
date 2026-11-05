@@ -6,3 +6,4 @@ public/materials/
 .env*
 !.env.example
 .tastemaker/preview.png
+.local-import/

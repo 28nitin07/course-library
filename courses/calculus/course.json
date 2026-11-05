@@ -1,0 +1,12 @@
+{
+  "id": "calculus",
+  "title": "Calculus",
+  "description": "Teaching materials from the local course collection. Original document dates are retained; some readings and practice papers come from earlier offerings. Instructor details are unverified.",
+  "listings": [
+    {
+      "departmentId": "mat",
+      "code": "MAT-1000"
+    }
+  ],
+  "majorIds": []
+}

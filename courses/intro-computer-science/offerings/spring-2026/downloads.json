@@ -1,0 +1,68 @@
+{
+  "files": [
+    {
+      "name": "PSET-4.pdf",
+      "folder": "problem sets",
+      "type": "PDF",
+      "size": 75033,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/intro-computer-science/offerings/spring-2026/materials/problem%20sets/PSET-4.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/749c34e6deb870c6--PSET-4.pdf"
+    },
+    {
+      "name": "PSET-1.pdf",
+      "folder": "problem sets",
+      "type": "PDF",
+      "size": 107242,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/intro-computer-science/offerings/spring-2026/materials/problem%20sets/PSET-1.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/a6151e049e1fec7d--PSET-1.pdf"
+    },
+    {
+      "name": "PSET-3.pdf",
+      "folder": "problem sets",
+      "type": "PDF",
+      "size": 106988,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/intro-computer-science/offerings/spring-2026/materials/problem%20sets/PSET-3.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/fcfdad0432277a84--PSET-3.pdf"
+    },
+    {
+      "name": "Interval Scheduling.pdf",
+      "folder": "lecture notes",
+      "type": "PDF",
+      "size": 141582,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/intro-computer-science/offerings/spring-2026/materials/lecture%20notes/Interval%20Scheduling.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/a5bb854510a7cfd1--Interval-Scheduling.pdf"
+    },
+    {
+      "name": "Hashing I.pdf",
+      "folder": "lecture notes",
+      "type": "PDF",
+      "size": 322128,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/intro-computer-science/offerings/spring-2026/materials/lecture%20notes/Hashing%20I.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/2e3639a51705db9a--Hashing-I.pdf"
+    },
+    {
+      "name": "Hashing II.pdf",
+      "folder": "lecture notes",
+      "type": "PDF",
+      "size": 377080,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/intro-computer-science/offerings/spring-2026/materials/lecture%20notes/Hashing%20II.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/cf8c4a623d5ff0bb--Hashing-II.pdf"
+    },
+    {
+      "name": "Final.pdf",
+      "folder": "Exams",
+      "type": "PDF",
+      "size": 131516,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/intro-computer-science/offerings/spring-2026/materials/Exams/Final.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/d96787ca4b7381d3--Final.pdf"
+    },
+    {
+      "name": "Midterm.pdf",
+      "folder": "Exams",
+      "type": "PDF",
+      "size": 81998,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/intro-computer-science/offerings/spring-2026/materials/Exams/Midterm.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/bad94ca8efb23b2e--Midterm.pdf"
+    }
+  ]
+}

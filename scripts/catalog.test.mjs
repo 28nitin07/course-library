@@ -154,3 +154,35 @@ test('orphan offerings, nested courses/offerings and malformed manifests are rej
   await put(root, 'courses/algebra/offerings/fall-a/nested/offering.json', {}); await assert.rejects(buildCatalog(root), /offering cannot be nested/); await rm(path.join(root, 'courses/algebra/offerings/fall-a/nested'), { recursive: true });
   for (const value of ['null', '[]', '{broken']) { await put(root, 'courses/algebra/course.json', value); await assert.rejects(buildCatalog(root), /must contain an object|invalid JSON/); }
 });
+
+test('external LFS materials keep byte pointers out of Pages and retain release backups', async (t) => {
+  const root = await fixture(t);
+  const folder = 'courses/algebra/offerings/fall-a';
+  await put(root, `${folder}/materials/Large.pdf`, 'version https://git-lfs.github.com/spec/v1\noid sha256:abc\nsize 400000000');
+  const file = { name: 'Large.pdf', folder: 'Lectures', type: 'PDF', size: 400000000, url: 'https://media.githubusercontent.com/media/owner/repo/main/Large.pdf', backupUrl: 'https://github.com/owner/repo/releases/download/materials/Large.pdf' };
+  await put(root, `${folder}/downloads.json`, { files: [file] });
+  const catalog = await buildCatalog(root);
+  const offering = catalog.courses[0].offerings.find((o) => o.id === 'fall-a');
+  assert.deepEqual(offering.files.find((f) => f.name === 'Large.pdf'), file);
+  await assert.rejects(readFile(path.join(root, 'public/materials/algebra/offerings/fall-a/materials/Large.pdf')), { code: 'ENOENT' });
+  assert.ok(!offering.files.some((f) => f.name === 'downloads.json'));
+  for (const url of ['javascript:alert(1)', 'https://untrusted.example/file', 'https://github.com@untrusted.example/file']) {
+    await put(root, `${folder}/downloads.json`, { files: [{ ...file, url }] });
+    await assert.rejects(buildCatalog(root), /HTTPS GitHub/);
+  }
+});
+
+test('unverified instructors are explicit and never become a fake faculty filter', async (t) => {
+  const root = await fixture(t);
+  await put(root, 'courses/algebra/offerings/fall-a/offering.json', { ...offeringMeta('fall-a', 'fall-26', 'Section A', []), instructorsUnverified: true });
+  const catalog = await buildCatalog(root);
+  assert.deepEqual(catalog.courses[0].offerings.find((o) => o.id === 'fall-a').professorIds, []);
+  assert.equal(matchingOfferings(catalog, catalog.courses[0], filters({ professor: 'ada' })).some((o) => o.id === 'fall-a'), false);
+});
+
+test('downloads switch to Releases when LFS is quota-blocked, unavailable, or unreachable', async () => {
+  const { downloadDestination } = await import('../src/downloads.ts');
+  for (const status of [403, 404, 429, 500]) assert.equal(await downloadDestination('https://primary', 'https://backup', async () => new Response(null, { status })), 'https://backup');
+  assert.equal(await downloadDestination('https://primary', 'https://backup', async () => { throw new TypeError('Network unavailable'); }), 'https://backup');
+  assert.equal(await downloadDestination('https://primary', 'https://backup', async (_url, options) => { assert.equal(options.method, 'HEAD'); return new Response(null, { status: 200 }); }), 'https://primary');
+});

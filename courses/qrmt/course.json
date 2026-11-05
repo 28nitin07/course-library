@@ -1,0 +1,12 @@
+{
+  "id": "qrmt",
+  "title": "Quantitative Reasoning and Mathematical Thinking",
+  "description": "Teaching materials from the local course collection. Original document dates are retained; some readings and practice papers come from earlier offerings. Instructor details are unverified.",
+  "listings": [
+    {
+      "departmentId": "foundation",
+      "code": "FC-0306"
+    }
+  ],
+  "majorIds": []
+}

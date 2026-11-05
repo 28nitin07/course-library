@@ -1,0 +1,16 @@
+{
+  "id": "global-politics-football",
+  "title": "Global Politics and Football",
+  "description": "Teaching materials from the local course collection. Original document dates are retained; some readings and practice papers come from earlier offerings. Instructor details are unverified.",
+  "listings": [
+    {
+      "departmentId": "pol",
+      "code": "POL-3122"
+    },
+    {
+      "departmentId": "ir",
+      "code": "IR-3036"
+    }
+  ],
+  "majorIds": []
+}

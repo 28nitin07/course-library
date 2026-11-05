@@ -1,0 +1,12 @@
+{
+  "id": "reading-writing",
+  "title": "Reading for Writing",
+  "description": "Teaching materials from the local course collection. Original document dates are retained; some readings and practice papers come from earlier offerings. Instructor details are unverified.",
+  "listings": [
+    {
+      "departmentId": "cw",
+      "code": "CW-1005"
+    }
+  ],
+  "majorIds": []
+}

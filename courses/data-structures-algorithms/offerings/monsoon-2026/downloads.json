@@ -1,0 +1,132 @@
+{
+  "files": [
+    {
+      "name": "Problem Set 1.pdf",
+      "folder": "problem sets",
+      "type": "PDF",
+      "size": 118867,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/problem%20sets/Problem%20Set%201.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/f9e163b430ae6a56--Problem-Set-1.pdf"
+    },
+    {
+      "name": "Lecture-4.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 700241,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-4.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/9119ef2acd8cac15--Lecture-4.pdf"
+    },
+    {
+      "name": "Lecture-7.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 569328,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-7.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/0c205fde74bb477e--Lecture-7.pdf"
+    },
+    {
+      "name": "ordered-dictionaries.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 758173,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/ordered-dictionaries.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/5ade72df7580d8c5--ordered-dictionaries.pdf"
+    },
+    {
+      "name": "Lecture-6.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 593396,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-6.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/684e5a526bb6dcd9--Lecture-6.pdf"
+    },
+    {
+      "name": "Lecture-2.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 1986822,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-2.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/b345057eadc2b61a--Lecture-2.pdf"
+    },
+    {
+      "name": "Lecture-3.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 491345,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-3.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/dceb3fca84b54a27--Lecture-3.pdf"
+    },
+    {
+      "name": "Lecture-1.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 5701670,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-1.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/8d9c22f45e43e098--Lecture-1.pdf"
+    },
+    {
+      "name": "Lecture-8.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 533721,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-8.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/ab807f3cae462d7c--Lecture-8.pdf"
+    },
+    {
+      "name": "Lecture-9.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 751979,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-9.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/dce525aecd3d2a8a--Lecture-9.pdf"
+    },
+    {
+      "name": "Lecture-10.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 535434,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-10.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/0a49f3f88dd2cf7f--Lecture-10.pdf"
+    },
+    {
+      "name": "Lecture-14 (old).pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 1449478,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-14%20%28old%29.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/201fea2a3e01e26d--Lecture-14-old.pdf"
+    },
+    {
+      "name": "Lecture-15.pdf",
+      "folder": "lecture slides",
+      "type": "PDF",
+      "size": 2079841,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/lecture%20slides/Lecture-15.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/5ae382ecb0653d6f--Lecture-15.pdf"
+    },
+    {
+      "name": "Quiz 2.pdf",
+      "folder": "quizzes",
+      "type": "PDF",
+      "size": 106481,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/quizzes/Quiz%202.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/b71d036066490be5--Quiz-2.pdf"
+    },
+    {
+      "name": "Quiz 1 - Part A.pdf",
+      "folder": "quizzes",
+      "type": "PDF",
+      "size": 101403,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/quizzes/Quiz%201%20-%20Part%20A.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/ce681891e893c59a--Quiz-1---Part-A.pdf"
+    },
+    {
+      "name": "Quiz 1 - Part B.pdf",
+      "folder": "quizzes",
+      "type": "PDF",
+      "size": 95052,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/data-structures-algorithms/offerings/monsoon-2026/materials/quizzes/Quiz%201%20-%20Part%20B.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/4535ba819843e7aa--Quiz-1---Part-B.pdf"
+    }
+  ]
+}

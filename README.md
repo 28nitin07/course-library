@@ -15,7 +15,7 @@ A course is a stable academic identity, not a combination of department, instruc
 
 ## Add your university registries
 
-Edit `catalog.config.json`. These are illustrative values; the repository currently includes only the starter guide, not a university's official catalog.
+Edit `catalog.config.json`. These are illustrative values; the imported collection is a personal archive, not the university's official catalog.
 
 ```json
 {
@@ -92,7 +92,7 @@ Course folders may be nested for storage, but a course cannot contain another co
 
 For a parallel class, add a separate offering folder with another ID and section, such as `2026-fall-b` / `Section B`, and that class's professor and files. For a team-taught class, put both instructors in the same `professors` array. For a later semester, create another offering referencing that semester and its actual instructor IDs.
 
-Every offering requires an ID, known semester ID, a section label, and at least one professor. Section labels must be unique within a course and semester; use the university's actual section identifier or an equally clear label. Offering IDs are scoped to their course. An instructor ID must have a consistent name everywhere; identical names with different IDs remain different people and are disambiguated in the interface.
+Every offering requires an ID, known semester ID, a section label, and at least one professor. When instructor details cannot be verified, use `professors: []` with `instructorsUnverified: true`; the interface labels this explicitly and creates no fictitious instructor filter. Section labels must be unique within a course and semester; use the university's actual section identifier or an equally clear label. Offering IDs are scoped to their course. An instructor ID must have a consistent name everywhere; identical names with different IDs remain different people and are disambiguated in the interface.
 
 All files beneath an offering manifest belong to that offering, including nested folders. Files elsewhere in the course folder are shared course materials. Manifests, hidden paths, and symbolic links are excluded. Offerings cannot be nested inside other offerings.
 
@@ -131,3 +131,13 @@ Pushing to `main` deploys through `.github/workflows/pages.yml` to https://28nit
 Validation covers more than 20 majors and departments, cross-listing counts/search, parallel sections, team teaching, changed faculty across semesters, identical display names with distinct IDs, invalid references, duplicate identities, encoded download paths, exact file bytes, hidden files, symlinks, and stale asset cleanup. Browser QA uses temporary, clearly labeled test fixtures; those fixtures are not published.
 
 Only publish materials you intend to make public and have permission to distribute. GitHub and Pages file/storage limits still apply.
+
+## Imported course materials and download storage
+
+The course collection excludes personal submissions, programming projects, student answer scripts, draft essays, unverified scans, duplicate files within a course, and documents requiring further review. Original source files are never deleted by importing. The local selection and exclusions are recorded in `.local-import/selection.json`, which is ignored by Git.
+
+Files under `courses/**/materials/**` are tracked with Git LFS. Each offering's `downloads.json` lists public LFS URLs and identical GitHub Releases backup assets. The builder reads these manifests and excludes both the LFS files and their Git pointer contents from the Pages artifact. GitHub Actions leaves LFS fetching disabled, avoiding a full collection download on every deployment.
+
+Download buttons check the LFS URL with a lightweight HEAD request and use the Releases copy if the check fails, including blocked or exhausted LFS access. Modified clicks and copying a URL retain the primary link. A successful check followed by a later transfer failure cannot be detected by this static website; use the backup link in that case. This availability check does not monitor billing usage or change account budgets. Keep the account's LFS budget capped if paid overages are unwanted.
+
+Releases backups must be uploaded and verified before publishing download manifests. Updating a file requires uploading the new LFS object, refreshing its size and primary URL, and uploading its matching backup asset. Preserve existing backup assets for older links.

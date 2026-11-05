@@ -1,0 +1,16 @@
+{
+  "id": "discrete-mathematics",
+  "title": "Discrete Mathematics",
+  "description": "Teaching materials from the local course collection. Original document dates are retained; some readings and practice papers come from earlier offerings. Instructor details are unverified.",
+  "listings": [
+    {
+      "departmentId": "cs",
+      "code": "CS-1110"
+    },
+    {
+      "departmentId": "mat",
+      "code": "MAT-2203"
+    }
+  ],
+  "majorIds": []
+}

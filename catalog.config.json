@@ -1,5 +1,71 @@
 {
-  "departments": [{ "id": "library", "name": "Library guide" }],
+  "departments": [
+    {
+      "id": "library",
+      "name": "Library guide"
+    },
+    {
+      "id": "mat",
+      "name": "Mathematics"
+    },
+    {
+      "id": "foundation",
+      "name": "Foundation Courses"
+    },
+    {
+      "id": "ent",
+      "name": "Entrepreneurship"
+    },
+    {
+      "id": "cs",
+      "name": "Computer Science"
+    },
+    {
+      "id": "ast",
+      "name": "Astronomy"
+    },
+    {
+      "id": "phy",
+      "name": "Physics"
+    },
+    {
+      "id": "cw",
+      "name": "Creative Writing"
+    },
+    {
+      "id": "bio",
+      "name": "Biology"
+    },
+    {
+      "id": "pol",
+      "name": "Political Science"
+    },
+    {
+      "id": "ir",
+      "name": "International Relations"
+    }
+  ],
   "majors": [],
-  "semesters": []
+  "semesters": [
+    {
+      "id": "monsoon-2025",
+      "name": "Monsoon 2025",
+      "order": 20252
+    },
+    {
+      "id": "spring-2026",
+      "name": "Spring 2026",
+      "order": 20261
+    },
+    {
+      "id": "monsoon-2026",
+      "name": "Monsoon 2026",
+      "order": 20262
+    },
+    {
+      "id": "local-semester-3",
+      "name": "Semester 3 (term unverified)",
+      "order": 20260
+    }
+  ]
 }

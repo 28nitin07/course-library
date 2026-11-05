@@ -1,7 +1,7 @@
 import { Effect, Schema } from 'effect';
 declare const __CATALOG_VERSION__: string;
 const Entity = Schema.Struct({ id: Schema.String, name: Schema.String });
-const Resource = Schema.Struct({ name: Schema.String, folder: Schema.String, type: Schema.String, size: Schema.Number, url: Schema.String });
+const Resource = Schema.Struct({ name: Schema.String, folder: Schema.String, type: Schema.String, size: Schema.Number, url: Schema.String, backupUrl: Schema.optional(Schema.String) });
 const Offering = Schema.Struct({ id: Schema.String, semesterId: Schema.String, section: Schema.String, professorIds: Schema.Array(Schema.String), files: Schema.Array(Resource) });
 const Course = Schema.Struct({ id: Schema.String, title: Schema.String, description: Schema.String, listings: Schema.Array(Schema.Struct({ departmentId: Schema.String, code: Schema.String })), majorIds: Schema.Array(Schema.String), sharedFiles: Schema.Array(Resource), offerings: Schema.Array(Offering) });
 export const Catalog = Schema.Struct({ departments: Schema.Array(Entity), majors: Schema.Array(Entity), semesters: Schema.Array(Schema.Struct({ id: Schema.String, name: Schema.String, order: Schema.Number })), professors: Schema.Array(Entity), courses: Schema.Array(Course) });

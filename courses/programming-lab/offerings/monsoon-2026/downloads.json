@@ -1,0 +1,52 @@
+{
+  "files": [
+    {
+      "name": "Course Policy.pdf",
+      "folder": "",
+      "type": "PDF",
+      "size": 73531,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/programming-lab/offerings/monsoon-2026/materials/Course%20Policy.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/432fecb1a2fd417b--Course-Policy.pdf"
+    },
+    {
+      "name": "Assignment-1.pdf",
+      "folder": "assignment 1 ",
+      "type": "PDF",
+      "size": 55754,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/programming-lab/offerings/monsoon-2026/materials/assignment%201%20/Assignment-1.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/1a155af5f4a93eb5--Assignment-1.pdf"
+    },
+    {
+      "name": "MasterMind.pdf",
+      "folder": "midterm project : assignment 2",
+      "type": "PDF",
+      "size": 30353,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/programming-lab/offerings/monsoon-2026/materials/midterm%20project%20%3A%20assignment%202/MasterMind.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/7f7388c89a895000--MasterMind.pdf"
+    },
+    {
+      "name": "Spelling Bee.pdf",
+      "folder": "assignment 4",
+      "type": "PDF",
+      "size": 63682,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/programming-lab/offerings/monsoon-2026/materials/assignment%204/Spelling%20Bee.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/14e89fb70a086726--Spelling-Bee.pdf"
+    },
+    {
+      "name": "Boggle.pdf",
+      "folder": "assignment 4",
+      "type": "PDF",
+      "size": 32606,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/programming-lab/offerings/monsoon-2026/materials/assignment%204/Boggle.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/2f529faf4378cdb6--Boggle.pdf"
+    },
+    {
+      "name": "Word Games.pdf",
+      "folder": "assignment 3",
+      "type": "PDF",
+      "size": 31000,
+      "url": "https://media.githubusercontent.com/media/28nitin07/course-library/main/courses/programming-lab/offerings/monsoon-2026/materials/assignment%203/Word%20Games.pdf",
+      "backupUrl": "https://github.com/28nitin07/course-library/releases/download/course-materials-2026-11-05/aed5ca8052ac4c5a--Word-Games.pdf"
+    }
+  ]
+}

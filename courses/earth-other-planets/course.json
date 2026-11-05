@@ -1,0 +1,20 @@
+{
+  "id": "earth-other-planets",
+  "title": "Earth and Other Planets",
+  "description": "Teaching materials from the local course collection. Original document dates are retained; some readings and practice papers come from earlier offerings. Instructor details are unverified.",
+  "listings": [
+    {
+      "departmentId": "ast",
+      "code": "AST-2840"
+    },
+    {
+      "departmentId": "ast",
+      "code": "AST-3840"
+    },
+    {
+      "departmentId": "phy",
+      "code": "PHY-3840"
+    }
+  ],
+  "majorIds": []
+}

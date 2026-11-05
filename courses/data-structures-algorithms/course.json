@@ -1,0 +1,12 @@
+{
+  "id": "data-structures-algorithms",
+  "title": "Data Structures and Algorithms",
+  "description": "Teaching materials from the local course collection. Original document dates are retained; some readings and practice papers come from earlier offerings. Instructor details are unverified.",
+  "listings": [
+    {
+      "departmentId": "cs",
+      "code": "CS-2212"
+    }
+  ],
+  "majorIds": []
+}

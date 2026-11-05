@@ -1,0 +1,24 @@
+{
+  "id": "probability-statistics",
+  "title": "Probability and Statistics",
+  "description": "Teaching materials from the local course collection. Original document dates are retained; some readings and practice papers come from earlier offerings. Instructor details are unverified.",
+  "listings": [
+    {
+      "departmentId": "mat",
+      "code": "MAT-2020"
+    },
+    {
+      "departmentId": "cs",
+      "code": "CS-1209"
+    },
+    {
+      "departmentId": "phy",
+      "code": "PHY-1208"
+    },
+    {
+      "departmentId": "bio",
+      "code": "BIO-3289"
+    }
+  ],
+  "majorIds": []
+}

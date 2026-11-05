@@ -29,6 +29,22 @@ export async function buildCatalog(root) {
   const semesterIds = new Set(semesters.map((s) => s.id));
   const target = path.join(root, 'public/materials');
   const copies = [];
+  async function externalResources(directory, files) {
+    const manifest = await json(path.join(directory, 'downloads.json'));
+    for (const item of array(manifest.files, 'downloads.files')) {
+      const resource = {};
+      for (const key of ['name', 'folder', 'type']) resource[key] = key === 'folder' ? String(item[key] ?? '') : string(item[key], `download.${key}`);
+      if (!Number.isSafeInteger(item.size) || item.size < 0) fail('download.size', 'must be a nonnegative integer');
+      resource.size = item.size;
+      for (const key of ['url', 'backupUrl']) {
+        if (key === 'backupUrl' && item[key] === undefined) continue;
+        const url = new URL(string(item[key], `download.${key}`));
+        if (url.protocol !== 'https:' || !['media.githubusercontent.com', 'github.com'].includes(url.hostname) || url.username || url.password) fail('download.url', 'requires an HTTPS GitHub download URL');
+        resource[key] = url.href;
+      }
+      files.push(resource);
+    }
+  }
   const professors = new Map();
   const allListings = new Set();
   const courses = [];
@@ -91,13 +107,15 @@ export async function buildCatalog(root) {
         if (professors.has(professorId) && professors.get(professorId).name !== name) fail(id, `conflicting names for professor ${professorId}`);
         professors.set(professorId, { id: professorId, name }); return professorId;
       });
-      if (!professorIds.length) fail(id, `offering ${offeringId} requires at least one professor`);
+      if (!professorIds.length && item.instructorsUnverified !== true) fail(id, `offering ${offeringId} requires at least one professor or instructorsUnverified: true`);
       unique(professorIds, `${id}/${offeringId}.professors`);
       const files = [];
       // Skip the root manifest, but reject any nested offering manifests.
       const entries = (await readdir(offeringRoot.directory, { withFileTypes: true })).filter(visible);
+      const external = entries.some((e) => e.name === 'downloads.json' && e.isFile());
+      if (external) await externalResources(offeringRoot.directory, files);
       for (const entry of entries) {
-        if (entry.name === 'offering.json') continue;
+        if (entry.name === 'offering.json' || entry.name === 'downloads.json' || (external && entry.name === 'materials')) continue;
         if (entry.isDirectory()) await collect(path.join(offeringRoot.directory, entry.name), [...offeringRoot.parts, entry.name], files, [], false);
         else if (entry.isFile() && entry.name !== 'course.json') {
           const full = path.join(offeringRoot.directory, entry.name); const info = await stat(full);
@@ -106,7 +124,7 @@ export async function buildCatalog(root) {
           copies.push({ source: full, destination: path.join(target, ...segments) });
         }
       }
-      for (const file of files) file.folder = decodeURIComponent(file.url.split('/').slice(1 + offeringRoot.parts.length, -1).join('/'));
+      for (const file of files) if (!file.url.startsWith('https://')) file.folder = decodeURIComponent(file.url.split('/').slice(1 + offeringRoot.parts.length, -1).join('/'));
       files.sort((a, b) => compare(a.name, b.name) || compare(a.url, b.url));
       offerings.push({ id: offeringId, semesterId, section, professorIds, files });
     }
