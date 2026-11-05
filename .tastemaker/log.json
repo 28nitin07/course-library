@@ -41,5 +41,19 @@
       "restraint": 5,
       "variety": 4
     }
+  },
+  {
+    "date": "2026-11-05",
+    "surface": "course archive",
+    "mood": "minimal terminal",
+    "structure": "top search, left results, right filters",
+    "critique": {
+      "showDontTell": 5,
+      "philosophy": 5,
+      "hierarchy": 5,
+      "specificity": 5,
+      "restraint": 5,
+      "variety": 4
+    }
   }
 ]

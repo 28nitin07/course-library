@@ -6,7 +6,7 @@ export function setupTheme() {
   const apply = (theme: Theme) => {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
-    document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')!.content = theme === 'dark' ? '#101722' : '#174a8b';
+    document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')!.content = theme === 'dark' ? '#101110' : '#fafbf8';
     toggle.setAttribute('aria-pressed', String(theme === 'dark'));
     toggle.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
   };

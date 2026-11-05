@@ -1,8 +1,8 @@
 # Course Library
 
-A public university course archive built with TypeScript, Effect, and Vite. The interface borrows Windows XP's blue header, cream toolbar, and task pane, with navigation designed for courses and their semester offerings.
+A public university course archive built with TypeScript, Effect, and Vite. The minimal terminal-style interface has a search bar at the top, course results in the main area, and filters on the right.
 
-Dark mode is the default. The toolbar’s **Dark mode** toggle switches between dark and light; the choice is remembered in browser storage and applied before styles load.
+Dark mode is the default. The header’s **Dark mode** toggle switches between dark and light; the choice is remembered in browser storage and applied before styles load.
 
 ## Academic model
 
@@ -98,9 +98,9 @@ All files beneath an offering manifest belong to that offering, including nested
 
 ## Browse and search
 
-The searchable department pane accommodates long department lists. Major, semester, and instructor filters are independent. Searching matches titles, descriptions, every cross-listed code and department, major names, semester names, instructors, sections, and filenames. Multiple search terms must match the same course/offering context; quoted phrases match as a phrase. The same course is never duplicated for its cross-listings.
+Department, major, semester, and instructor filters are independent and grouped in the right-hand panel. On mobile, that panel becomes a collapsible section below the search bar. Searching matches titles, descriptions, every cross-listed code and department, major names, semester names, instructors, sections, and filenames. Multiple search terms must match the same course/offering context; quoted phrases match as a phrase. The same course is never duplicated for its cross-listings.
 
-The course page groups offerings by semester, showing sections and every instructor before visitors open files. Offering pages retain the course, semester, section, and faculty context. Shared materials appear in a separately labeled section. Department counts respect the active filters; the course directory's Total files column counts all of that course's files. Breadcrumbs and browser Back/Forward preserve navigation, and URL links use permanent IDs.
+The course page groups offerings by semester, showing sections and every instructor before visitors open files. Offering pages retain the course, semester, section, and faculty context. Shared materials appear in a separately labeled section. Result counts respect the active filters; the course directory's Total files column counts all of that course's files. Breadcrumbs and browser Back/Forward preserve navigation, and URL links use permanent IDs.
 
 ## Migration from the old hierarchy
 

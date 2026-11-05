@@ -1,28 +1,23 @@
 # Style lock — Course Library
 
-Updated 2026-11-05. Source: user requested Windows XP as inspiration for a university-specific archive; rejected Windows 98 replication.
+Updated 2026-11-05. Source: explicit user request for a simple minimal GUI, terminal styling, search at the top, and filters on the right. Supersedes XP styling.
 
-## Direction contract
-An academic catalog with XP-inspired materials: blue title strip, cream command bar, pale blue task pane, yellow folders, and restrained raised buttons. The layout serves course discovery and comparing offerings. No fake desktop controls or OS simulation. Operate/Read; variance 4, motion 1, density 6, art direction 6. Current TypeScript/Effect/Vite/Lucide stack retained, no new dependencies. See reference-board.md for consulted sources and inspiration boundaries.
+## Direction and layout
+A restrained monospace archive. No gradients, window chrome, shadows, filled cards, decorative panels, or animated cursor. Top row: small course-library wordmark and text navigation. Full-width search directly below. Main results on the left and a 244px filter rail on the right, with a thin dividing line. Native selects for department, major, semester, and instructor; offering file type joins that panel only when relevant. Filters collapse under the search on mobile. Course and offering data model remains unchanged.
 
-## Data and layout
-Departments, majors, courses, semesters, instructors, and offerings have separate stable identities. Major membership is independent of department listings. One course row includes all cross-listed codes. Semester-grouped offerings show parallel sections and every instructor. Shared files have a separate section. A searchable scrolling department pane accommodates long lists; independent major/semester/instructor filters avoid a rigid five-level folder tree. Mobile substitutes a department selector and stacks directory rows and offering comparisons.
+Operate/Read mode; variance 2, motion 1, density 7, art direction 4. Existing TypeScript/Effect/Vite/Lucide stack retained. No new dependencies or imagery. Native details/summary and selects provide simple accessible behavior.
 
 ## Color contract
-Background #e8eff7; surface #ffffff; chrome #f4f2e9; blue #174a8b; blue-dark #113363; blue-bright #3269c6; blue-light #eaf2fc; sidebar #d9e5f5; line #c2cee0; text #23354c; muted #52647b; green #285d2a; folder fill #f4cd62 with edge #795d15. Shadow rgba(26,55,94,.14).
-Verified: text/white 12.46:1; text/blue-light 11.04:1; blue/white 8.79:1; blue/blue-light 7.79:1; white/blue-bright 5.29:1; muted/cream 5.40:1; green/blue-light 6.92:1. Header gradient uses white text on endpoints that pass AA. Lines are decorative; focus uses blue-bright. Do not place dark text on primary blue. Runtime theme switch; dark is the default for new visitors, and explicit light/dark choices persist locally. Both palettes are verified.
+Dark default: background/surface #101110, text #e2e7df, muted #a7afa4, accent #afd489, hover #1b211a, decorative lines #303930, control border #677460.
+Verified dark text/background 15.08:1; text/hover 13.08:1; accent/background 11.36:1; muted/background 8.39:1; control border/background 3.82:1. Text never sits on a solid accent fill.
+Light companion: background #fafbf8, surface #ffffff, text #242b24, muted #555f52, accent #345c22, hover #edf3e7, decorative lines #cdd3c9, control border #7a8776.
+Verified light text/background 13.98:1, muted/background 6.43:1, accent/background 7.49:1, control border/background 3.64:1. Decorative hairlines do not carry interactive state. Focus and selected themes use contrasting accent color. Both palettes retain AA text and 3:1 control-boundary floors.
 
-## Type, space, and shape
-Tahoma/Verdana/Arial. Main titles 23–27px, course links 13px, body 12–13px, secondary labels 10–11px. Spacing 4/6/8/10/12/14/16/18/20/22/24/30/32/44px. Corners 3–5px on controls/panels and 9px on header frame. Modest window shadow, shallow button bevels. Column layout: 250px department task pane + flexible main; 210px sidebar below 1080px; stacked layout below 780px.
+## Type and spacing
+System monospace stack: ui-monospace / SFMono-Regular / Menlo / Monaco / Consolas / Liberation Mono. Search 14px; titles 20px; course links/body 12–13px; secondary labels 10–11px. Spacing 6/8/10/12/14/16/18/20/24/28/32/40/44/64px. Square edges, 1px lines. App maximum width 1380px; desktop side padding 32px. Filter rail 244px, gap 40px; responsive rail 218px below 1100px. Under 760px stack with collapsible filters above results.
 
-## Assets and motion
-Existing Lucide icon family; folder icons gold, navigation ink blue/green. No imagery or copyrighted Windows assets. XP is aesthetic inspiration, not an official Microsoft design-system implementation. Results use 140ms opacity feedback only when reduced motion is not requested; ordinary controls respond immediately. Static motion and visual scans pass.
+## Interactions
+Top search retains keyboard shortcut /. Course, semester, parallel section, multi-instructor, and cross-listed relationships stay explicit. Shared materials stay separate from offering files. Dark mode remains the default and remembers each visitor's choice; stored theme is applied before styles load. Result feedback uses 120ms opacity only with reduced-motion preference respected. No animated typing or simulation of running shell commands.
 
 ## Verification and memory
-Test fixtures include 24 majors and departments, a cross-listed course, simultaneous sections, team teaching, and changed faculty across semesters. Browser QA verifies cross-listed navigation, instructor/semester isolation, offering files vs shared files, and mobile comparison. Fixtures are temporary and not published. Actual catalog contains only the starter guide.
-Project decision log and style lock updated. No global personal profile changes. Current XP execution pending user review; requested inspiration recorded without assuming approval of this implementation.
-
-## Dark mode (default)
-Background #101722; surface #192332; chrome #202c3d; link blue #9cc5ff; heading #d6e6fc; focus #8bb8ff; blue-light #253850; sidebar #23354e; line #526781; text #e5edf7; muted #b4c2d5; green #9cdda8. The XP header retains its blue gradient and explicit white label tokens in both modes. Control boundaries use #8296b2 in dark mode and #75869d in light mode (3.95:1 and 3.71:1 respectively; above the 3:1 UI boundary floor).
-Dark text/surface contrast 13.40:1, text/blue-light 10.11:1, links/blue-light 6.73:1, muted/sidebar 6.87:1, green/blue-light 7.57:1. Decorative lines need not carry state; keyboard focus and pressed theme state use contrasting blue.
-Apply the saved theme in the document head before CSS loads. A stable “Dark mode” toggle exposes aria-pressed, retains course navigation state, works without storage, and synchronizes changes between tabs. Only a saved explicit light choice overrides the dark default.
+Build, 10 academic-model tests, contrast checks, and static scans pass. Browser checks cover search, right-side department selection, relocated offering file-type filter, mobile filter collapse/expansion, and existing course/offerings navigation. Temporary QA fixtures are restored to the real guide before publishing. Project decisions and style lock updated; no personal profile changes. Implementation pending user review.
